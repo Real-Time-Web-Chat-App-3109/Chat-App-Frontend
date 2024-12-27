@@ -1,11 +1,13 @@
 import { useAuthStore } from "../store/useAuthStore";
+import { useState } from "react";
+import { Camera,User,Mail } from "lucide-react";
 
 function ProfilePage() {
   const { authUser, isUpdateingProfile, updateProfile } = useAuthStore();
     const [selectedImg,setSelectedImg]= useState(null);
 
   const handleImageUpload = async (e) => {
-     const file = e.type.files[0];
+     const file = e.target.files[0];
      if(!file) return;
 
      const reader = new FileReader();
@@ -19,22 +21,7 @@ function ProfilePage() {
      };
   };
 
-  const updateProfile = async (data) => {
-    set({isUpdateingProfile:true});
-    try {
-        const res = await axiosInstance.put("/auth/update-profile",data);
-        set({authUser:res.data});
-        toast.success("ProfileUpdated successfully");
-    } catch (error) {
-        console.log("error in update profile:", error);
-        toast.error(error.response.data.message);
-    }
-    finally
-    {
-        set({isUpdateingProfile:false});
-    }
-  };
-  
+
   return (
     <>
       <div className="h-screen pt-20">
@@ -48,7 +35,7 @@ function ProfilePage() {
             <div className="flex flex-col items-center gap-4">
               <div className="relative">
                 <img
-                  src={selectedImg || authUser.ProfilePage || "/user.png"}
+                  src={selectedImg || authUser.profilePic || "/user.png"}
                   alt="Profile"
                   className="size-32 rounded-full object-cover border-4"
                 />

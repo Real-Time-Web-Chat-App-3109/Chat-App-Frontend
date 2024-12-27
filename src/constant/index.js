@@ -1,5 +1,5 @@
 
-export const THEME=[
+export const THEMES=[
     "light",
     "dark",
     "cupcake",
