@@ -1,3 +1,10 @@
+import { Route, Routes } from "react-router-dom"
+import { Navbar } from "./Component/Navbar"
+import { HomePage } from "./Pages/HomePage"
+import { SignUpPage } from "./Pages/SignUpPage"
+import { LoginPage } from "./Pages/LoginPage"
+import { SettingsPage } from "./Pages/SettingsPage"
+import { ProfilePage } from "./Pages/ProfilePage"
 
 
 function App() {
@@ -5,7 +12,16 @@ function App() {
 
   return (
     <>
-      <h1 className="text-blue-800 text-center text-[100px]">welcome to chat app.</h1>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />}/>
+          <Route path="/signup" element={<SignUpPage />}/>
+          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/settings" element={<SettingsPage />}/>
+          <Route path="/profile" element={<ProfilePage />}/>
+        </Routes>
+      </div>
     </>
   )
 }
