@@ -10,21 +10,19 @@ function ProfilePage() {
      const file = e.target.files[0];
      if(!file) return;
 
-     const reader = new FileReader();
+     const data = new FormData();
 
-     reader.readAsDataURL(file);
+    data.append("image",file)
 
-     reader.onload = async () =>{
-        const base64Image = reader.result;
-        setSelectedImg(base64Image);
-        await updateProfile({profilePic:base64Image})
-     };
+     
+    await updateProfile(data)
   };
 
+  console.log(authUser);
 
   return (
     <>
-      <div className="h-screen pt-20">
+      <div className="min-h-screen pt-20">
         <div className="max-w-2xl mx-auto p-4 py-8">
           <div className="bg-base-300 rounded-xl p-6 space-y-8">
             <div className="text-center">
@@ -71,14 +69,14 @@ function ProfilePage() {
                         <User className="w-4 h-4" />
                         Full Name
                     </div>
-                    <p className="text-sm text-zinc-400 flex items-center gap-2">{authUser?.fullName}</p>
+                    <p className="text-sm text-black flex items-center gap-2">{authUser?.fullName}</p>
                 </div>
                 <div className="space-y-1.5">
                     <div className="text-sm text-zinc-400 flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         Email Address
                     </div>
-                    <p className="text-sm text-zinc-400 flex items-center gap-2">{authUser?.email}</p>
+                    <p className="text-sm text-black flex items-center gap-2">{authUser?.email}</p>
                 </div>
             </div>
 

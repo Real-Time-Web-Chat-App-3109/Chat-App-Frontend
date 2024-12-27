@@ -49,7 +49,7 @@ function LoginPage()
                     </div>
                     <input
                       type="email"
-                      className={`input input-bordered w-full pl-10`}
+                      className={`input input-bordered w-full pl-10 text-black`}
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -67,7 +67,7 @@ function LoginPage()
                     </div>
                     <input
                       type={showPassword ? "text" : "password"}
-                      className={`input input-bordered w-full pl-10`}
+                      className={`input input-bordered w-full pl-10 text-black`}
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
