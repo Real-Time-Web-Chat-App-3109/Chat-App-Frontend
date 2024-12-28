@@ -10,15 +10,19 @@ function ProfilePage() {
      const file = e.target.files[0];
      if(!file) return;
 
-     const data = new FormData();
+    const data = new FormData();
 
     data.append("image",file)
 
-     
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectedImg(reader.result);
+    };
+    reader.readAsDataURL(file);
+
     await updateProfile(data)
   };
 
-  console.log(authUser);
 
   return (
     <>
