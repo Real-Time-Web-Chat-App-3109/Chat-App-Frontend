@@ -9,7 +9,7 @@ const MessageInput = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const [filedata,setFiledata]=useState()
-  const { sendMessage } = useChatStore();
+  const { selectedUser,sendMessage,sendGroupMessage } = useChatStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -38,7 +38,16 @@ const MessageInput = () => {
       const messageData = new FormData();
       messageData.append("text", text.trim());
       messageData.append("image", filedata);
-      await sendMessage(messageData);
+
+      if(selectedUser)
+      {
+        await sendMessage(messageData);
+      }
+      else
+      {
+        await sendGroupMessage(messageData);
+      }
+      
 
       // Clear form
       setText("");
