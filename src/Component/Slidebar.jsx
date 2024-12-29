@@ -4,7 +4,7 @@ import { useAuthStore } from "../store/useAuthStore";
 
 import { Plus, Users } from "lucide-react";
 import { SidebarSkeleton } from "./skeletons/SlidebarSkeleton";
-import { use } from "react";
+import { useRef } from "react";
 
 const Sidebar = () => {
   const {
@@ -21,6 +21,8 @@ const Sidebar = () => {
   } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
+
+  const dailog = useRef(null)
 
   const [groupName, setGroupName] = useState("");
   const [groupUsers, setGroupUsers] = useState([]);
@@ -128,6 +130,7 @@ const Sidebar = () => {
                   setGroupName("");
                   setGroupUsers([]);
                 }}
+                ref={dailog}
               >
                 ✕
               </button>
@@ -188,7 +191,8 @@ const Sidebar = () => {
             <div
               className="w-full text-center"
               onClick={() =>{
-                creatGroup({ groupName, members: groupUsers })
+                creatGroup({ groupName, members: groupUsers });
+                dailog?.current?.click();
               }}
             >
               <button className="btn btn-active btn-primary">Create</button>
