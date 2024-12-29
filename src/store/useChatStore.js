@@ -113,12 +113,34 @@ export const useChatStore = create((set,get) => ({
             })
         })
     },
+    subscribeToGroupMessages:()=>{
+        const { selectedGroup } = get();
+
+        if(!selectedGroup) return;
+
+        const socket = useAuthStore.getState().socket;
+
+        socket.on("newGroupMessage", (newMessage)=>{
+            // for optimization perpose
+            const isMessageSentFromSelectedUser = newMessage.groupId === selectedGroup._id;
+            if(!isMessageSentFromSelectedUser) return
+            set({
+                messages:[...get().messages,newMessage]
+            })
+        })
+    },
 
     unsubscribeFromMessages:()=>
     {
         const socket = useAuthStore.getState().socket;
         socket.off("newMessage");
-    },   
+    },
+    
+    unsubscribeFromGroupMessages:()=>
+    {
+        const socket = useAuthStore.getState().socket;
+        socket.off("newGroupMessage");
+    },
 
     setSelectedUser : (selectedUser)=>set({selectedUser}),
 
